@@ -115,7 +115,7 @@ public class UserService {
             loggedInMap.put(token, userToLogin);
             return new Tuple<>(HttpStatus.OK, token);
         } else {
-            return new Tuple<>(HttpStatus.BAD_REQUEST, ResponseMessages.INVALID_CREDENTIALS);
+            return new Tuple<>(HttpStatus.UNAUTHORIZED, ResponseMessages.INVALID_CREDENTIALS);
         }
     }
 

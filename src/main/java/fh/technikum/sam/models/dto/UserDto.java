@@ -1,6 +1,7 @@
 package fh.technikum.sam.models.dto;
 
 import fh.technikum.sam.models.User;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -12,53 +13,87 @@ import lombok.Data;
  * </p>
  */
 @Data
+@Schema(
+        name = "User",
+        description = "Represents a user in the carsharing system",
+        example = """
+        {
+          "userId": 12345,
+          "username": "johndoe",
+          "firstName": "John",
+          "surname": "Doe",
+          "age": 30,
+          "fleetManager": false
+        }"""
+)
 public class UserDto implements DataTransferObject {
 
-    /**
-     * The unique identifier for the user.
-     */
+    @Schema(
+            description = "The unique identifier for the user",
+            example = "12345",
+            accessMode = Schema.AccessMode.READ_ONLY
+    )
     private Long userId;
 
-    /**
-     * The username of the user.
-     */
+    @Schema(
+            description = "Unique username for authentication",
+            example = "johndoe",
+            requiredMode = Schema.RequiredMode.REQUIRED,
+            minLength = 4,
+            maxLength = 20
+    )
     private String username;
 
-    /**
-     * The password of the user (should be hashed when stored in the database).
-     */
+    @Schema(
+            description = "User's password (hashed when stored)",
+            accessMode = Schema.AccessMode.WRITE_ONLY,
+            requiredMode = Schema.RequiredMode.REQUIRED,
+            minLength = 8
+    )
     private String password;
 
-    /**
-     * The first name of the user.
-     */
+    @Schema(
+            description = "User's first name",
+            example = "John",
+            requiredMode = Schema.RequiredMode.REQUIRED,
+            minLength = 2
+    )
     private String firstName;
 
-    /**
-     * The surname (last name) of the user.
-     */
+    @Schema(
+            description = "User's last name",
+            example = "Doe",
+            requiredMode = Schema.RequiredMode.REQUIRED,
+            minLength = 2
+    )
     private String surname;
 
-    /**
-     * The age of the user.
-     */
+    @Schema(
+            description = "User's age in years",
+            example = "30",
+            minimum = "18",
+            maximum = "120"
+    )
     private Integer age;
 
-    /**
-     * The driving license number of the user.
-     */
+    @Schema(
+            description = "Driver's license number",
+            accessMode = Schema.AccessMode.WRITE_ONLY,
+            requiredMode = Schema.RequiredMode.REQUIRED
+    )
     private Integer drivingLicenseNumber;
 
-    /**
-     * The credit card number associated with the user.
-     * <p>
-     * Note: Be mindful of privacy concerns when handling sensitive information such as credit card numbers.
-     * </p>
-     */
+    @Schema(
+            description = "Credit card number (PCI compliant handling required)",
+            accessMode = Schema.AccessMode.WRITE_ONLY,
+            hidden = true
+    )
     private Integer creditCardNumber;
 
-    /**
-     * Indicates whether the user is a fleet manager.
-     */
+    @Schema(
+            description = "Indicates if user has fleet manager privileges",
+            example = "false",
+            defaultValue = "false"
+    )
     private Boolean fleetManager;
 }

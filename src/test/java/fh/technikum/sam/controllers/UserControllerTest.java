@@ -4,6 +4,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import fh.technikum.sam.models.User;
 import fh.technikum.sam.models.dto.LoginDto;
 import fh.technikum.sam.models.dto.UserDto;
+import fh.technikum.sam.models.dto.UserPublicDto;
 import fh.technikum.sam.services.DtoTransformerService;
 import fh.technikum.sam.services.UserService;
 import org.junit.jupiter.api.BeforeAll;
@@ -50,6 +51,8 @@ class UserControllerTest {
     private static final User user2 = new User();
     private static final LoginDto loginDto1 = new LoginDto();
     private static final LoginDto loginDto2 = new LoginDto();
+    private static final UserPublicDto publicUser1 = new UserPublicDto();
+    private static final UserPublicDto publicUser2 = new UserPublicDto();
 
     @BeforeAll
     public static void initializeData() {
@@ -98,6 +101,20 @@ class UserControllerTest {
         user2.setFleetManager(false);
         user2.setDrivingLicenseNumber(441232311);
         user2.setCreditCardNumber(12342345);
+
+        publicUser1.setUserId(user1.getUserId());
+        publicUser1.setAge(user1.getAge());
+        publicUser1.setFirstName(user1.getFirstName());
+        publicUser1.setSurname(user1.getSurname());
+        publicUser1.setFleetManager(user1.getFleetManager());
+        publicUser1.setUsername(user1.getUsername());
+
+        publicUser2.setUserId(user2.getUserId());
+        publicUser2.setAge(user2.getAge());
+        publicUser2.setFirstName(user2.getFirstName());
+        publicUser2.setSurname(user2.getSurname());
+        publicUser2.setFleetManager(user2.getFleetManager());
+        publicUser2.setUsername(user2.getUsername());
     }
 
     @BeforeEach
@@ -111,14 +128,16 @@ class UserControllerTest {
     void registerRegularTest() throws Exception {
 
         when(userService.register(userDto1)).thenReturn(user1);
+        when(dtoTransformerService.transformToDto(user1, UserPublicDto.class)).thenReturn(publicUser1);
 
         mockMvc.perform(post("/api/users/register")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(objectMapper.writeValueAsString(userDto1)))
                 .andExpect(status().isCreated())
-                .andExpect(content().json(objectMapper.writeValueAsString(user1)));
+                .andExpect(content().json(objectMapper.writeValueAsString(publicUser1)));
 
         verify(userService).register(userDto1);
+        verify(dtoTransformerService).transformToDto(user1, UserPublicDto.class);
     }
 
 
@@ -133,6 +152,7 @@ class UserControllerTest {
                 .andExpect(content().string(USER_ALREADY_EXISTS));
 
         verify(userService).register(userDto1);
+        verify(dtoTransformerService, never()).transformToDto(any(), any());
     }
 
 
@@ -142,19 +162,19 @@ class UserControllerTest {
         when(userService.isLoggedIn(shortenedToken)).thenReturn(true);
         when(userService.isFleetManager(shortenedToken)).thenReturn(true);
         when(userService.getAll()).thenReturn(List.of(user1, user2));
-        when(dtoTransformerService.transformToDto(user1, UserDto.class)).thenReturn(userDto1);
-        when(dtoTransformerService.transformToDto(user2, UserDto.class)).thenReturn(userDto2);
+        when(dtoTransformerService.transformToDto(user1, UserPublicDto.class)).thenReturn(publicUser1);
+        when(dtoTransformerService.transformToDto(user2, UserPublicDto.class)).thenReturn(publicUser2);
 
         mockMvc.perform(get("/api/users")
                         .header("Authorization", "Bearer 1"))
                 .andExpect(status().isOk())
-                .andExpect(content().json(objectMapper.writeValueAsString(List.of(userDto1, userDto2))));
+                .andExpect(content().json(objectMapper.writeValueAsString(List.of(publicUser1, publicUser2))));
 
         verify(userService).isLoggedIn(shortenedToken);
         verify(userService).isFleetManager(shortenedToken);
         verify(userService).getAll();
-        verify(dtoTransformerService).transformToDto(user1, UserDto.class);
-        verify(dtoTransformerService).transformToDto(user2, UserDto.class);
+        verify(dtoTransformerService).transformToDto(user1, UserPublicDto.class);
+        verify(dtoTransformerService).transformToDto(user2, UserPublicDto.class);
     }
 
 

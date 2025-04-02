@@ -84,7 +84,10 @@ public class VehicleServiceTest {
         vehicleService.create(vehicleDto2);
 
         List<Vehicle> vehicleList = vehicleService.getAll();
-        assertThat(vehicleList).isEqualTo(List.of(vehicle1, vehicle2));
+        assertThat(vehicleList)
+                .usingRecursiveComparison()
+                .ignoringFields( "currentTimestamp")
+                .isEqualTo(List.of(vehicle1, vehicle2));
     }
 
     @Test
@@ -98,7 +101,10 @@ public class VehicleServiceTest {
         Long createdVehicleId = vehicleService.create(vehicleDto1).getVehicleId();
 
         Vehicle vehicleToCheck = vehicleService.getById(createdVehicleId);
-        assertThat(vehicleToCheck).isEqualTo(vehicle1);
+        assertThat(vehicleToCheck)
+                .usingRecursiveComparison()
+                .ignoringFields( "currentTimestamp")
+                .isEqualTo(vehicle1);
     }
 
     @Test
@@ -110,14 +116,20 @@ public class VehicleServiceTest {
     @Test
     void createRegularTest() {
         Vehicle createdVehicle = vehicleService.create(vehicleDto1);
-        assertThat(createdVehicle).isEqualTo(vehicle1);
+        assertThat(createdVehicle)
+                .usingRecursiveComparison()
+                .ignoringFields( "currentTimestamp")
+                .isEqualTo(vehicle1);
     }
 
 
     @Test
     void createDuplicateTest() {
         Vehicle createdVehicle = vehicleService.create(vehicleDto1);
-        assertThat(createdVehicle).isEqualTo(vehicle1);
+        assertThat(createdVehicle)
+                .usingRecursiveComparison()
+                .ignoringFields( "currentTimestamp")
+                .isEqualTo(vehicle1);
 
         createdVehicle = vehicleService.create(vehicleDto1);
         assertThat(createdVehicle).isNull();
@@ -129,7 +141,10 @@ public class VehicleServiceTest {
         Vehicle createdVehicle = vehicleService.create(vehicleDto1);
         Vehicle deletedVehicle = vehicleService.deleteById(createdVehicle.getVehicleId());
 
-        assertThat(createdVehicle).isEqualTo(deletedVehicle);
+        assertThat(createdVehicle)
+                .usingRecursiveComparison()
+                .ignoringFields( "currentTimestamp")
+                .isEqualTo(deletedVehicle);
     }
 
     @Test

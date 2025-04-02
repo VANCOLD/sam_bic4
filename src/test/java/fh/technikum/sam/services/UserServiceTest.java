@@ -200,7 +200,7 @@ public class UserServiceTest {
         HttpStatus status = result.getKey();
 
         assertThat(token).isEqualTo(ResponseMessages.INVALID_CREDENTIALS);
-        assertThat(status).isEqualTo(HttpStatus.BAD_REQUEST);
+        assertThat(status).isEqualTo(HttpStatus.UNAUTHORIZED);
     }
 
     @Test
