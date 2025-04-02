@@ -31,10 +31,10 @@ public class UserService {
     private static Long userIdCounter = 1L;
 
     // We initialize it here, that way we don't need a constructor
-    private final Map<Long, User> userMap = new HashMap<>();
+    private Map<Long, User> userMap = new HashMap<>();
 
     // String = token
-    private final Map<String, User> loggedInMap = new HashMap<>();
+    private Map<String, User> loggedInMap = new HashMap<>();
 
     /**
      * Checks if the user associated with the given token is a fleet manager.
@@ -142,7 +142,7 @@ public class UserService {
      * @param token The authentication token of the user.
      * @return The {@link User} associated with the token, or null if not found.
      */
-    private User getLoggedInByToken(String token) {
+    public User getLoggedInByToken(String token) {
         return loggedInMap.get(token);
     }
 
@@ -152,7 +152,7 @@ public class UserService {
      * @param user The user to check.
      * @return true if the user exists in the system, false otherwise.
      */
-    private boolean userExists(User user) {
+    public boolean userExists(User user) {
         // We simply check if the user we are given with its data exists in the map already
         for (User userToCompare : userMap.values()) {
             if (userToCompare.equals(user)) {
@@ -168,15 +168,14 @@ public class UserService {
      * @param loginDto The login credentials to validate.
      * @return true if the credentials match an existing user, false otherwise.
      */
-    private boolean areCredentialsValid(LoginDto loginDto) {
+    public boolean areCredentialsValid(LoginDto loginDto) {
         // We simply check if the user we are given with its data exists in the map already
-        for (User userToCompare : userMap.values()) {
-            if (userToCompare.getUsername().equals(loginDto.getUsername()) &&
-                    userToCompare.getPassword().equals(loginDto.getPassword())) {
-                return true;
-            }
-        }
-        return false;
+
+        return userMap.values()
+                      .stream()
+                      .anyMatch(userToCompare -> userToCompare.getUsername().equals(loginDto.getUsername())
+                                && userToCompare.getPassword().equals(loginDto.getPassword()));
+
     }
 
     /**
@@ -185,7 +184,7 @@ public class UserService {
      * @param username The username to search for.
      * @return The {@link User} object if found, null otherwise.
      */
-    private User findByUsername(String username) {
+    public User findByUsername(String username) {
         for (User user : userMap.values()) {
             if (user.getUsername().equals(username))
                 return user;
@@ -199,11 +198,22 @@ public class UserService {
      * @param user The user to check.
      * @return true if the user is logged in, false otherwise.
      */
-    private boolean isLoggedIn(User user) {
+    public boolean isLoggedIn(User user) {
         for (User userToFind : loggedInMap.values()) {
             if (userToFind.equals(user))
                 return true;
         }
         return false;
+    }
+
+
+    /**
+     * This method is only for testing purposes!
+     * Don't use it in any other case
+     */
+    public void reset() {
+        this.userMap = new HashMap<>();
+        this.loggedInMap = new HashMap<>();
+        userIdCounter = 1L;
     }
 }

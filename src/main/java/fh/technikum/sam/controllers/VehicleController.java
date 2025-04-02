@@ -78,7 +78,7 @@ public class VehicleController {
         if (vehicle == null) {
             return ResponseEntity.status(HttpStatus.NO_CONTENT).body(NO_VEHICLE_FOUND + vehicleId);
         } else {
-            return ResponseEntity.ok(vehicle);
+            return ResponseEntity.ok(dtoTransformerService.transformToDto(vehicle, VehicleDto.class));
         }
     }
 
@@ -124,7 +124,7 @@ public class VehicleController {
 
         Vehicle vehicleToDelete = vehicleService.deleteById(vehicleId);
         if (vehicleToDelete == null) {
-            return ResponseEntity.badRequest().build();
+            return ResponseEntity.noContent().build();
         } else {
             return ResponseEntity.ok(dtoTransformerService.transformToDto(vehicleToDelete, VehicleDto.class));
         }

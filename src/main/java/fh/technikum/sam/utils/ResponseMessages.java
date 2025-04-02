@@ -44,4 +44,5 @@ public class ResponseMessages {
      * Message returned when no vehicle is found with the provided ID.
      */
     public static final String NO_VEHICLE_FOUND = "No vehicle found with the given id: ";
+
 }

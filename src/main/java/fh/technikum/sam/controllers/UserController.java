@@ -82,11 +82,7 @@ public class UserController {
     public ResponseEntity<List<UserDto>> getAll(@RequestHeader(name = "Authorization") String token) {
         token = removeTokenPrefix(token);
 
-        if (!userService.isLoggedIn(token) || !userService.isFleetManager(token)) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
-
-        if (userService.isFleetManager(token)) {
+        if (userService.isFleetManager(token) && userService.isLoggedIn(token)) {
             List<User> userList = userService.getAll();
 
             if (userList.isEmpty()) {

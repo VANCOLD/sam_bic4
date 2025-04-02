@@ -21,6 +21,6 @@ public class AppConfig {
      */
     @Bean
     public ModelMapper modelMapper() {
-        return new ModelMapper(); // Creating the ModelMapper Bean
+        return new ModelMapper();
     }
 }

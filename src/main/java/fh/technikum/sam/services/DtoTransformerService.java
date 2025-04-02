@@ -2,7 +2,6 @@ package fh.technikum.sam.services;
 
 import fh.technikum.sam.models.dto.DataTransferObject;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 /**
@@ -15,7 +14,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class DtoTransformerService {
 
-    private ModelMapper modelMapper;
+    private final ModelMapper modelMapper;
 
     public DtoTransformerService(ModelMapper modelMapper) {
         this.modelMapper = modelMapper;

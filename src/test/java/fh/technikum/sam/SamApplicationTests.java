@@ -8,7 +8,7 @@ class SamApplicationTests {
 
 	@Test
 	void contextLoads() {
-		assert true;
+		// This test will pass if the application context loads without errors.
 	}
 
 }

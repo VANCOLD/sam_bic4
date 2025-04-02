@@ -11,9 +11,15 @@ public class Utils {
      * with the "Bearer " prefix in HTTP request headers.
      *
      * @param token The token string that may contain the "Bearer " prefix.
-     * @return The token string without the "Bearer " prefix, or the original token if the prefix is not found.
+     * @return The token string without the "Bearer " prefix, or the original token if the prefix is not found;
+     * Returns "" if the string is empty / blank or null
      */
     public static String removeTokenPrefix(String token) {
+
+        if ( token == null || token.isBlank()) {
+            return ""; // failsafe
+        }
+
         if (token.contains("Bearer ")) {
             token = token.substring("Bearer ".length());
         }

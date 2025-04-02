@@ -27,7 +27,7 @@ public class VehicleService {
     /**
      * In-memory map storing the vehicles by their unique vehicle ID.
      */
-    private final Map<Long, Vehicle>  vehicleMap = new HashMap<>();
+    private Map<Long, Vehicle>  vehicleMap = new HashMap<>();
 
     /**
      * Retrieves all vehicles stored in the system.
@@ -75,5 +75,15 @@ public class VehicleService {
      */
     public Vehicle deleteById(Long vehicleId) {
         return this.vehicleMap.remove(vehicleId);
+    }
+
+
+    /**
+     * This method is only for testing purposes!
+     * Don't use it in any other case
+     */
+    public void reset() {
+        this.vehicleMap = new HashMap<>();
+        vehicleIdCounter = 1L;
     }
 }
