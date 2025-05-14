@@ -152,6 +152,10 @@ public class UserService {
         return this.userRepository.getAll();
     }
 
+
+    public boolean userExists(Long userid) {
+        return userRepository.userExists(userid);
+    }
     /**
      * This method is only for testing purposes!
      * Don't use it in any other case

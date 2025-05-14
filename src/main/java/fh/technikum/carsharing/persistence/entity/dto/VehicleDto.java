@@ -44,7 +44,7 @@ public class VehicleDto implements DataTransferObject {
     /**
      * The ID of the driver currently operating the vehicle.
      */
-    private Integer driverId;
+    private Long driverId;
 
     /**
      * The distance traveled by the vehicle since the last update.

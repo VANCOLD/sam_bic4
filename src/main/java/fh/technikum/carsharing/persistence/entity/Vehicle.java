@@ -64,7 +64,7 @@ public class Vehicle {
          * This is the ID of the individual currently using the vehicle.
          * </p>
          */
-        private Integer driverId;
+        private Long driverId;
 
         /**
          * The distance the vehicle has traveled since the last update.

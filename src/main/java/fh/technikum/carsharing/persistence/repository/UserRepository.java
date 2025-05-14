@@ -39,7 +39,7 @@ public class UserRepository {
     }
 
     /**
-     * Checks if the given user already exists in the system.
+     * Checks if the given user already exists in the system by User-Object.
      *
      * @param user The user to check.
      * @return true if the user exists in the system, false otherwise.
@@ -48,6 +48,16 @@ public class UserRepository {
         // We simply check if the user we are given with its data exists in the map already
         for (User userToCompare : userMap.values()) {
             if (userToCompare.equals(user)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public boolean userExists(Long userId) {
+        // We simply check if the user we are given with its data exists in the map already
+        for (User userToCompare : userMap.values()) {
+            if (userToCompare.getUserId().equals(userId)) {
                 return true;
             }
         }
