@@ -28,7 +28,7 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
-    // We store the logged in users in the service, since we don't want to save the logged in users in the repo
+    // We store the logged-in users in the service, since we don't want to save the logged in users in the repo
     // we just keep track in here as long as the session exists
     private Map<String, User> loggedInMap = new HashMap<>();
 

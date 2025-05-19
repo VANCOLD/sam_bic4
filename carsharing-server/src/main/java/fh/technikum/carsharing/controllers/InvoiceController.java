@@ -27,7 +27,7 @@ public class InvoiceController {
     RabbitTemplate rabbitTemplate;
 
     @PostMapping("{user-id}")
-    public ResponseEntity<String> generateInvoiceForuser(@PathVariable(name="user-id") Long userId,
+    public ResponseEntity<String> generateInvoiceForUser(@PathVariable(name="user-id") Long userId,
                                                          @RequestHeader(name = "Authorization") String token) throws JsonProcessingException {
 
         token = removeTokenPrefix(token);

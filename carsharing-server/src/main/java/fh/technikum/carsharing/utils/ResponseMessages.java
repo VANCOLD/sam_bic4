@@ -46,7 +46,7 @@ public class ResponseMessages {
     public static final String NO_VEHICLE_FOUND = "No vehicle found with the given id: ";
 
     /**
-     * Message returned when vehicle updates either use a invalid token or vehicleId
+     * Message returned when vehicle updates either use an invalid token or vehicleId
      */
     public static final String INVALID_AUTHORISATION_STATUS = "The given vehicleID or token is invalid!";
 
@@ -56,7 +56,7 @@ public class ResponseMessages {
     public static final String SUCCESSFULL_STATUS_UPDATE = "Successfully processed the status update for: ";
 
     /**
-     * Message returned when a user that is either not logged in our not fleetmanager tries to create a invoice
+     * Message returned when a user that is either not logged in our not fleet manager tries to create an invoice
      */
     public static final String INVALID_AUTHORISATION_INVOICE = "Please log in / check your role";
 

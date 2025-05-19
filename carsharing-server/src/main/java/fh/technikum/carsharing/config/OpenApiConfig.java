@@ -14,8 +14,8 @@ public class OpenApiConfig {
             """
             ## 🚗 **CarSharing API** 🚦
             
-            Powering the next generation of urban mobility, our API provides seamless access to 
-            carsharing services. Enable users to discover, book, and manage vehicle rentals 
+            Powering the next generation of urban mobility, our API provides seamless access to
+            carsharing services. Enable users to discover, book, and manage vehicle rentals
             with just a few API calls.
             
             ### 🔑 **Core Features**

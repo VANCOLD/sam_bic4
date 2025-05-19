@@ -1,8 +1,6 @@
 package fh.technikum.carsharing.controllers;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.fasterxml.jackson.databind.ObjectMapper;
-import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import fh.technikum.carsharing.config.RabbitMQConfig;
 import fh.technikum.carsharing.persistence.entity.dto.EmergencyStatusDto;
 import fh.technikum.carsharing.persistence.entity.dto.VehicleStatusDto;
@@ -48,7 +46,7 @@ public class VehicleStatusUpdateController {
         }
 
         // Since we have 2 services, we send as json, and use the object mapper to map it to the dto in the other service.
-        // This isnt the best solution but for this simple exercise it will suffice
+        // This isn't the best solution but for this simple exercise it will suffice
         String json = JsonObjectMapper.getInstance().writeValueAsString(vehicleStatusDto);
         rabbitTemplate.convertAndSend(RabbitMQConfig.STATUS_UPDATE_QUEUE_NAME, json.getBytes(StandardCharsets.UTF_8));
         return ResponseEntity.status(HttpStatus.CREATED).body(SUCCESSFULL_STATUS_UPDATE + vehicleStatusDto.getClass().getSimpleName());
@@ -67,7 +65,7 @@ public class VehicleStatusUpdateController {
         }
 
         // Since we have 2 services, we send as json, and use the object mapper to map it to the dto in the other service.
-        // This isnt the best solution but for this simple exercise it will suffice
+        // This isn't the best solution but for this simple exercise it will suffice
         String json = JsonObjectMapper.getInstance().writeValueAsString(emergencyStatusDto);
         rabbitTemplate.convertAndSend(RabbitMQConfig.EMERGENCY_UPDATE_QUEUE_NAME, json.getBytes(StandardCharsets.UTF_8));
         return ResponseEntity.status(HttpStatus.CREATED).body(SUCCESSFULL_STATUS_UPDATE + emergencyStatusDto.getClass().getSimpleName());

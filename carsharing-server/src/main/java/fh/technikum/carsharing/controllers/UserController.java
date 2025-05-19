@@ -48,7 +48,7 @@ public class UserController {
 
     @Operation(
             summary = "Register a new user",
-            description = "Creates a new user account in the carsharing system"
+            description = "Creates a new user account in the car sharing system"
     )
     @io.swagger.v3.oas.annotations.parameters.RequestBody(
             description = "User registration details",
@@ -58,7 +58,7 @@ public class UserController {
                     examples = @ExampleObject(
                             value = """
                 {
-                  "username": "newuser",
+                  "username": "example",
                   "password": "SecurePass123!",
                   "firstName": "John",
                   "surname": "Doe",
@@ -80,7 +80,7 @@ public class UserController {
                                     value = """
                     {
                       "userId": 1,
-                      "username": "newuser",
+                      "username": "example",
                       "firstName": "John",
                       "surname": "Doe",
                       "age": 25,
@@ -122,7 +122,7 @@ public class UserController {
                     examples = @ExampleObject(
                             value = """
                 {
-                  "username": "existinguser",
+                  "username": "existing user",
                   "password": "UserPass123!"
                 }"""
                     )
