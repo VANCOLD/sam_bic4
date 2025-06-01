@@ -59,7 +59,7 @@ class VehicleControllerTest {
         vehicle1.setTimeSinceLastUpdate(20.0);
         vehicle1.setPriority(Priority.CRITICAL);
         vehicle1.setDistanceSinceLastUpdate(40.0);
-        vehicle1.setDriverId(1);
+        vehicle1.setDriverId(1L);
         vehicle1.setEmergencyDescription("");
         vehicle1.setIsOccupied(true);
         vehicle1.setLatitude(10.5);
@@ -78,7 +78,7 @@ class VehicleControllerTest {
         vehicleDto1.setTimeSinceLastUpdate(20.0);
         vehicleDto1.setPriority(Priority.CRITICAL);
         vehicleDto1.setDistanceSinceLastUpdate(40.0);
-        vehicleDto1.setDriverId(1);
+        vehicleDto1.setDriverId(1L);
         vehicleDto1.setEmergencyDescription("");
         vehicleDto1.setIsOccupied(true);
         vehicleDto1.setLatitude(10.5);

@@ -53,12 +53,12 @@ public class ResponseMessages {
     /**
      * Message returned if the server processed a status / emergency update successfully
      */
-    public static final String SUCCESSFULL_STATUS_UPDATE = "Successfully processed the status update for: ";
+    public static final String SUCCESSFUL_STATUS_UPDATE = "Successfully processed the status update for: ";
 
     /**
      * Message returned when a user that is either not logged in our not fleet manager tries to create an invoice
      */
     public static final String INVALID_AUTHORISATION_INVOICE = "Please log in / check your role";
 
-    public static final String SUCCESSFULL_INVOICE_CREATION = "Invoice was successfully created for the user: ";
+    public static final String SUCCESSFUL_INVOICE_CREATION = "Invoice was successfully created for the user: ";
 }

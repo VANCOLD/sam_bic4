@@ -25,7 +25,7 @@ public class UserRepository {
     private static Long userIdCounter = 1L;
 
     // We initialize it here, that way we don't need a constructor
-    private Map<Long, User> userMap = new HashMap<>();
+    private final Map<Long, User> userMap = new HashMap<>();
 
     public UserRepository() {}
 
@@ -108,7 +108,7 @@ public class UserRepository {
     }
 
     public void reset() {
-        this.userMap = new HashMap<>();
+        this.userMap.clear();
         userIdCounter = 1L;
     }
 }

@@ -32,7 +32,7 @@ public class VehicleServiceTest {
         vehicle1.setPriority(Priority.CRITICAL);
         vehicle1.setCurrentTimestamp(LocalDateTime.now());
         vehicle1.setDistanceSinceLastUpdate(40.0);
-        vehicle1.setDriverId(1);
+        vehicle1.setDriverId(1L);
         vehicle1.setEmergencyDescription("");
         vehicle1.setIsOccupied(true);
         vehicle1.setLatitude(10.5);
@@ -53,7 +53,7 @@ public class VehicleServiceTest {
         vehicleDto1.setPriority(Priority.CRITICAL);
         vehicleDto1.setCurrentTimestamp(LocalDateTime.now());
         vehicleDto1.setDistanceSinceLastUpdate(40.0);
-        vehicleDto1.setDriverId(1);
+        vehicleDto1.setDriverId(1L);
         vehicleDto1.setEmergencyDescription("");
         vehicleDto1.setIsOccupied(true);
         vehicleDto1.setLatitude(10.5);

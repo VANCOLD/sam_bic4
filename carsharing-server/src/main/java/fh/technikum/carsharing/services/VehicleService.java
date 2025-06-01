@@ -19,7 +19,7 @@ public class VehicleService {
     VehicleRepository vehicleRepository;
 
     /**
-     * Retrieves all vehicles stored in the system (passthrough from service to controller).
+     * Retrieves all vehicles stored in the system (pass through from service to controller).
      *
      * @return A list of all vehicles.
      */
@@ -28,7 +28,7 @@ public class VehicleService {
     }
 
     /**
-     * Retrieves a vehicle by its unique ID (passthrough).
+     * Retrieves a vehicle by its unique ID (pass through).
      *
      * @param vehicleId The ID of the vehicle to retrieve.
      * @return The vehicle corresponding to the given ID, or null if not found.
@@ -64,7 +64,7 @@ public class VehicleService {
 
 
     /**
-     * This method is only for testing purposes! (passthrough)
+     * This method is only for testing purposes! (pass through)
      * Don't use it in any other case
      */
     public void reset() {

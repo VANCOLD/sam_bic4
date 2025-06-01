@@ -16,7 +16,7 @@ import lombok.Data;
         description = "Contains authentication credentials for user login",
         example = """
         {
-          "username": "johndoe",
+          "username": "john doe",
           "password": "securePassword123!"
         }"""
 )
@@ -24,7 +24,7 @@ public class LoginDto implements DataTransferObject {
 
     @Schema(
             description = "Unique username for authentication",
-            example = "johndoe",
+            example = "john doe",
             requiredMode = Schema.RequiredMode.REQUIRED,
             minLength = 4,
             maxLength = 20,

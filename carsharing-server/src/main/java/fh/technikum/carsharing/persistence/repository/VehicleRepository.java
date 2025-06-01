@@ -24,7 +24,7 @@ public class VehicleRepository {
     /**
      * In-memory map storing the vehicles by their unique vehicle ID.
      */
-    private Map<Long, Vehicle> vehicleMap = new HashMap<>();
+    private final Map<Long, Vehicle> vehicleMap = new HashMap<>();
 
     /**
      * Creates a new vehicle from the provided VehicleDto.
@@ -42,7 +42,7 @@ public class VehicleRepository {
     }
 
     /**
-     * Retrieves all vehicles stored in the system (passthrough from service to controller).
+     * Retrieves all vehicles stored in the system (pass through from service to controller).
      *
      * @return A list of all vehicles.
      */
@@ -85,7 +85,7 @@ public class VehicleRepository {
      * Don't use it in any other case
      */
     public void reset() {
-        this.vehicleMap = new HashMap<>();
+        this.vehicleMap.clear();
         vehicleIdCounter = 1L;
     }
 }

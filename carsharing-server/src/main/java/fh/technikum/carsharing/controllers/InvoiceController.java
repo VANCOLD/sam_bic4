@@ -45,6 +45,6 @@ public class InvoiceController {
 
         String json = JsonObjectMapper.getInstance().writeValueAsString(invoice);
         rabbitTemplate.convertAndSend(RabbitMQConfig.CREATE_INVOICE_QUEUE_NAME, json.getBytes(StandardCharsets.UTF_8));
-        return ResponseEntity.status(HttpStatus.CREATED).body(SUCCESSFULL_INVOICE_CREATION + userId);
+        return ResponseEntity.status(HttpStatus.CREATED).body(SUCCESSFUL_INVOICE_CREATION + userId);
     }
 }

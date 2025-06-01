@@ -49,7 +49,7 @@ public class VehicleStatusUpdateController {
         // This isn't the best solution but for this simple exercise it will suffice
         String json = JsonObjectMapper.getInstance().writeValueAsString(vehicleStatusDto);
         rabbitTemplate.convertAndSend(RabbitMQConfig.STATUS_UPDATE_QUEUE_NAME, json.getBytes(StandardCharsets.UTF_8));
-        return ResponseEntity.status(HttpStatus.CREATED).body(SUCCESSFULL_STATUS_UPDATE + vehicleStatusDto.getClass().getSimpleName());
+        return ResponseEntity.status(HttpStatus.CREATED).body(SUCCESSFUL_STATUS_UPDATE + vehicleStatusDto.getClass().getSimpleName());
     }
 
     @PostMapping("{vehicle-id}/alarm")
@@ -68,6 +68,6 @@ public class VehicleStatusUpdateController {
         // This isn't the best solution but for this simple exercise it will suffice
         String json = JsonObjectMapper.getInstance().writeValueAsString(emergencyStatusDto);
         rabbitTemplate.convertAndSend(RabbitMQConfig.EMERGENCY_UPDATE_QUEUE_NAME, json.getBytes(StandardCharsets.UTF_8));
-        return ResponseEntity.status(HttpStatus.CREATED).body(SUCCESSFULL_STATUS_UPDATE + emergencyStatusDto.getClass().getSimpleName());
+        return ResponseEntity.status(HttpStatus.CREATED).body(SUCCESSFUL_STATUS_UPDATE + emergencyStatusDto.getClass().getSimpleName());
     }
 }

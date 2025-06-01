@@ -16,7 +16,7 @@ public class AppConfig {
     /**
      * Creates and provides a {@link BCryptPasswordEncoder} bean.
      * <p>
-     * BCryptPasswordEncoder is used for encrrypting the password that is stored in the repository for any given user
+     * BCryptPasswordEncoder is used for encrypting the password that is stored in the repository for any given user
      * </p>
      * @return a new instance of {@link BCryptPasswordEncoder}
      */

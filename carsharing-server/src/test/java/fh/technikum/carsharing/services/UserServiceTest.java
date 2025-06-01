@@ -7,7 +7,7 @@ import fh.technikum.carsharing.persistence.repository.UserRepository;
 import fh.technikum.carsharing.utils.ResponseMessages;
 import fh.technikum.carsharing.utils.Tuple;
 import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,8 +33,8 @@ public class UserServiceTest {
     private static final LoginDto loginDto1 = new LoginDto();
     private static final LoginDto loginDto2 = new LoginDto();
 
-    @BeforeAll
-    public static void initializeData() {
+    @BeforeEach
+    public void initializeData() {
 
         userDto1.setUserId(1L);
         userDto1.setUsername("user1");
