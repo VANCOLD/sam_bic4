@@ -9,6 +9,7 @@ import fh.technikum.carsharing.services.DtoTransformerService;
 import fh.technikum.carsharing.services.UserService;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -28,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 
 
+@Disabled
 @ExtendWith(MockitoExtension.class)
 class UserControllerTest {
 

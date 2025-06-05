@@ -85,8 +85,6 @@ public class UserServiceTest {
 
     @AfterEach
     public void tearDown() {
-        userService.reset();
-        userRepository.reset();
         userService.logoutUser("1");
     }
 
@@ -115,12 +113,12 @@ public class UserServiceTest {
         User registeredUser1 = userService.register(userDto1);
         User registeredUser2 = userService.register(userDto2);
 
-        assertThat(userRepository.getAll()).isEqualTo(List.of(registeredUser1, registeredUser2));
+        assertThat(userRepository.findAll()).isEqualTo(List.of(registeredUser1, registeredUser2));
     }
 
     @Test
     void getAllEmptyTest() {
-        assertThat(userRepository.getAll()).isEmpty();
+        assertThat(userRepository.findAll()).isEmpty();
     }
 
     @Test
@@ -142,13 +140,13 @@ public class UserServiceTest {
     @Test
     void registerTestRegular() {
         User registeredUser = userService.register(userDto1);
-        assertThat(userRepository.userExists(registeredUser)).isTrue();
+        assertThat(userRepository.existsById(registeredUser.getUserId())).isTrue();
     }
 
     @Test
     void registerTestFail() {
         User registeredUser1 = userService.register(userDto1);
-        assertThat(userRepository.userExists(registeredUser1)).isTrue();
+        assertThat(userRepository.existsById(registeredUser1.getUserId())).isTrue();
 
         User registeredUser2 = userService.register(userDto1);
         assertThat(registeredUser2).isNull();
@@ -235,5 +233,11 @@ public class UserServiceTest {
 
         assertThat(token).isEqualTo(ResponseMessages.USER_NOT_LOGGED_IN);
         assertThat(status).isEqualTo(HttpStatus.NOT_FOUND);
+    }
+
+    @Test
+    void findByUsername() {
+        this.userService.register(userDto1);
+        assertThat(this.userRepository.findByUsername(userDto1.getUsername())).isEqualTo(user1);
     }
 }

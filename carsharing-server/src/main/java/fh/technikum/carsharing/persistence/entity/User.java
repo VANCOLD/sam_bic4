@@ -1,5 +1,6 @@
 package fh.technikum.carsharing.persistence.entity;
 
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -12,6 +13,8 @@ import lombok.EqualsAndHashCode;
  * </p>
  */
 @Data
+@Entity
+@Table(name="users")
 public class User {
 
         /**
@@ -21,6 +24,8 @@ public class User {
          * </p>
          */
         @EqualsAndHashCode.Exclude
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long userId;
 
         /**
@@ -29,6 +34,7 @@ public class User {
          * This field is required to authenticate the user and must be unique within the system.
          * </p>
          */
+        @Column(name="username")
         private String username;
 
         /**
@@ -37,6 +43,7 @@ public class User {
          * It's recommended to store the password in a hashed form to protect user privacy and security.
          * </p>
          */
+        @Column(name="password")
         private String password;
 
         /**
@@ -45,6 +52,7 @@ public class User {
          * This field holds the user's given name and is used for personalization or addressing the user.
          * </p>
          */
+        @Column(name="firstname")
         private String firstName;
 
         /**
@@ -53,6 +61,7 @@ public class User {
          * This field holds the user's family name and is typically used along with the first name.
          * </p>
          */
+        @Column(name="surname")
         private String surname;
 
         /**
@@ -61,6 +70,7 @@ public class User {
          * This is used to determine the user's age, which may be used for validation (e.g., age restrictions).
          * </p>
          */
+        @Column(name="age")
         private Integer age;
 
         /**
@@ -69,6 +79,7 @@ public class User {
          * This field is used for identifying a user as a valid driver and is important for fleet management systems.
          * </p>
          */
+        @Column(name="drivingLicenseNumber")
         private Integer drivingLicenseNumber;
 
         /**
@@ -78,6 +89,7 @@ public class User {
          * PCI DSS standards to ensure privacy and security.
          * </p>
          */
+        @Column(name="creditCardNumber")
         private Integer creditCardNumber;
 
         /**
@@ -87,5 +99,6 @@ public class User {
          * </p>
          */
         @EqualsAndHashCode.Exclude
+        @Column(name="fleetManager")
         private Boolean fleetManager;
 }

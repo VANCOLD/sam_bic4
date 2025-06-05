@@ -1,6 +1,7 @@
 package fh.technikum.carsharing.persistence.entity;
 
 import fh.technikum.carsharing.persistence.entity.enums.Priority;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
@@ -15,6 +16,8 @@ import java.time.LocalDateTime;
  * </p>
  */
 @Data
+@Entity
+@Table(name="vehicles")
 public class Vehicle {
 
         /**
@@ -24,6 +27,8 @@ public class Vehicle {
          * </p>
          */
         @EqualsAndHashCode.Exclude
+        @Id
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         private Long vehicleId;
 
         /**
@@ -32,6 +37,7 @@ public class Vehicle {
          * This value represents the vehicle's longitude coordinate in a GPS coordinate system.
          * </p>
          */
+        @Column(name="longitude")
         private Double longitude;
 
         /**
@@ -40,6 +46,7 @@ public class Vehicle {
          * This value represents the vehicle's latitude coordinate in a GPS coordinate system.
          * </p>
          */
+        @Column(name="latitude")
         private Double latitude;
 
         /**
@@ -48,6 +55,7 @@ public class Vehicle {
          * This timestamp records the last time the vehicle's data was updated, such as its position, status, or any emergency.
          * </p>
          */
+        @Column(name="currentTimestampx") // current_timestamp is a keyword, so we have to change the column name
         private LocalDateTime currentTimestamp;
 
         /**
@@ -56,6 +64,7 @@ public class Vehicle {
          * This field is used to track whether the vehicle is in use by a customer or is available for other assignments.
          * </p>
          */
+        @Column(name="isOccupied")
         private Boolean isOccupied;
 
         /**
@@ -64,6 +73,7 @@ public class Vehicle {
          * This is the ID of the individual currently using the vehicle.
          * </p>
          */
+        @Column(name="driverId")
         private Long driverId;
 
         /**
@@ -72,6 +82,7 @@ public class Vehicle {
          * This field stores the distance in kilometers or miles the vehicle has moved since the last update.
          * </p>
          */
+        @Column(name="distanceSinceLastUpdate")
         private Double distanceSinceLastUpdate;
 
         /**
@@ -80,6 +91,7 @@ public class Vehicle {
          * This field represents the time elapsed since the last update to the vehicle's data.
          * </p>
          */
+        @Column(name="timeSinceLastUpdate")
         private Double timeSinceLastUpdate;
 
         /**
@@ -88,6 +100,8 @@ public class Vehicle {
          * This field indicates the urgency or importance of the vehicle's current task or condition.
          * </p>
          */
+        @Column(name="priority")
+        @Enumerated(EnumType.STRING)
         @EqualsAndHashCode.Exclude
         private Priority priority;
 
@@ -97,6 +111,7 @@ public class Vehicle {
          * This field may be used to store information about an emergency situation, such as an accident or breakdown.
          * </p>
          */
+        @Column(name="emergencyDescription")
         @EqualsAndHashCode.Exclude
         private String emergencyDescription;
 }

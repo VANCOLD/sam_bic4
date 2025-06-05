@@ -28,6 +28,9 @@ public class UserService {
     @Autowired
     UserRepository userRepository;
 
+    @Autowired
+    DtoTransformerService dtoTransferService;
+
     // We store the logged-in users in the service, since we don't want to save the logged-in users in the repo
     // we just keep track in here as long as the session exists
     private final Map<String, User> loggedInMap = new HashMap<>();
@@ -67,9 +70,10 @@ public class UserService {
     public User register(UserDto userDto) {
         User existingUser = userRepository.findByUsername(userDto.getUsername());
 
-        if (!userRepository.userExists(existingUser)) {
+        if (!userRepository.existsById(existingUser.getUserId())) {
             // if we don't find the same user, it is ok to save!
-            return userRepository.registerUser(userDto);
+            User newUser = dtoTransferService.transformToModel(userDto, User.class);
+            return userRepository.save(newUser);
         }
 
         return null;
@@ -93,7 +97,10 @@ public class UserService {
             return new Tuple<>(HttpStatus.BAD_REQUEST, ResponseMessages.USER_ALREADY_LOGGED_IN);
         }
 
-        if (userRepository.areCredentialsValid(loginDto)) {
+        String username = loginDto.getUsername();
+        String password = loginDto.getPassword();
+
+        if (userRepository.findByUsernameAndPassword(username, password)) {
             String token = userToLogin.getUserId() + "";
             loggedInMap.put(token, userToLogin);
             return new Tuple<>(HttpStatus.OK, token);
@@ -149,19 +156,10 @@ public class UserService {
      * @return A list of all users.
      */
     public List<User> getAll() {
-        return this.userRepository.getAll();
+        return this.userRepository.findAll();
     }
 
-
-    public boolean userExists(Long userid) {
-        return userRepository.userExists(userid);
-    }
-    /**
-     * This method is only for testing purposes!
-     * Don't use it in any other case
-     */
-    public void reset() {
-        this.loggedInMap.clear();
-        this.userRepository.reset();
+    public boolean userExists(Long userId) {
+        return userRepository.existsById(userId);
     }
 }

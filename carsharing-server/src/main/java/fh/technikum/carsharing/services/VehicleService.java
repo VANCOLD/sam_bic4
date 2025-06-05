@@ -18,13 +18,16 @@ public class VehicleService {
     @Autowired
     VehicleRepository vehicleRepository;
 
+    @Autowired
+    DtoTransformerService dtoTransformerService;
+
     /**
      * Retrieves all vehicles stored in the system (pass through from service to controller).
      *
      * @return A list of all vehicles.
      */
     public List<Vehicle> getAll() {
-        return vehicleRepository.getAll();
+        return vehicleRepository.findAll();
     }
 
     /**
@@ -34,7 +37,8 @@ public class VehicleService {
      * @return The vehicle corresponding to the given ID, or null if not found.
      */
     public Vehicle getById(Long vehicleId) {
-        return vehicleRepository.getById(vehicleId);
+        var vehicle = vehicleRepository.findById(vehicleId);
+        return vehicle.orElse(null);
     }
 
     /**
@@ -46,8 +50,9 @@ public class VehicleService {
      */
     public Vehicle create(VehicleDto vehicleDto) {
         // No need to check if the vehicle exists; every vehicle registration is unique.
-        if (!vehicleRepository.exists(vehicleDto.getVehicleId())) {
-            return vehicleRepository.create(vehicleDto);
+        if (!vehicleRepository.existsById(vehicleDto.getVehicleId())) {
+            var vehicle = dtoTransformerService.transformToModel(vehicleDto, Vehicle.class);
+            return vehicleRepository.save(vehicle);
         }
         return null;
     }
@@ -59,15 +64,13 @@ public class VehicleService {
      * @return The deleted Vehicle object, or null if no vehicle with the given ID was found.
      */
     public Vehicle deleteById(Long vehicleId) {
-        return vehicleRepository.deleteById(vehicleId);
+        var vehicle = vehicleRepository.findById(vehicleId);
+        if(vehicle.isPresent()) {
+            vehicleRepository.deleteById(vehicleId);
+            return vehicle.get(); // since we know the object exists we can call get
+        } else {
+            return null;
+        }
     }
 
-
-    /**
-     * This method is only for testing purposes! (pass through)
-     * Don't use it in any other case
-     */
-    public void reset() {
-        vehicleRepository.reset();
-    }
 }

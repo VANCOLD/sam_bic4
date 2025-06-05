@@ -3,7 +3,6 @@ package fh.technikum.carsharing.services;
 import fh.technikum.carsharing.persistence.entity.Vehicle;
 import fh.technikum.carsharing.persistence.entity.dto.VehicleDto;
 import fh.technikum.carsharing.persistence.entity.enums.Priority;
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -69,11 +68,6 @@ public class VehicleServiceTest {
         vehicleDto2.setLatitude(50.0);
         vehicleDto2.setLongitude(35.35);
         vehicleDto2.setVehicleId(2L);
-    }
-
-    @AfterEach
-    public void tearDown() {
-        vehicleService.reset();
     }
 
 
@@ -151,5 +145,11 @@ public class VehicleServiceTest {
     void deleteByIdInvalidIdTest() {
         Vehicle deletedVehicle = vehicleService.deleteById(10L);
         assertThat(deletedVehicle).isNull();
+    }
+
+
+    @Test
+    void findByToken() {
+
     }
 }
