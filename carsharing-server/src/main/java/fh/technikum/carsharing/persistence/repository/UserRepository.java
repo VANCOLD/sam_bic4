@@ -2,6 +2,8 @@ package fh.technikum.carsharing.persistence.repository;
 
 import fh.technikum.carsharing.persistence.entity.User;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 
@@ -16,5 +18,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
      */
     User findByUsername(String username);
 
-    boolean findByUsernameAndPassword(String username, String password);
+    @Query(value = "SELECT EXISTS (SELECT 1 FROM users WHERE username = :username AND password = :password)", nativeQuery = true)
+    boolean findByUsernameAndPassword(@Param("username") String username, @Param("password") String password);
 }

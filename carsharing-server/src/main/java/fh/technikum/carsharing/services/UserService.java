@@ -70,7 +70,7 @@ public class UserService {
     public User register(UserDto userDto) {
         User existingUser = userRepository.findByUsername(userDto.getUsername());
 
-        if (!userRepository.existsById(existingUser.getUserId())) {
+        if (existingUser == null) {
             // if we don't find the same user, it is ok to save!
             User newUser = dtoTransferService.transformToModel(userDto, User.class);
             return userRepository.save(newUser);

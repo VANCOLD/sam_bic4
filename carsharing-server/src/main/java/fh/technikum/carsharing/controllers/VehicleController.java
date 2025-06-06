@@ -1,7 +1,9 @@
 package fh.technikum.carsharing.controllers;
 
 import fh.technikum.carsharing.persistence.entity.Vehicle;
+import fh.technikum.carsharing.persistence.entity.dto.PriorityDto;
 import fh.technikum.carsharing.persistence.entity.dto.VehicleDto;
+import fh.technikum.carsharing.persistence.entity.enums.Priority;
 import fh.technikum.carsharing.services.DtoTransformerService;
 import fh.technikum.carsharing.services.UserService;
 import fh.technikum.carsharing.services.VehicleService;
@@ -11,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Arrays;
 import java.util.List;
 
 import static fh.technikum.carsharing.utils.ResponseMessages.NO_VEHICLE_FOUND;
@@ -128,5 +131,20 @@ public class VehicleController {
         } else {
             return ResponseEntity.ok(dtoTransformerService.transformToDto(vehicleToDelete, VehicleDto.class));
         }
+    }
+
+    @GetMapping("/priorities")
+    public ResponseEntity<List<PriorityDto>> getPriorities(@RequestHeader(name = "Authorization") String token){
+        token = removeTokenPrefix(token);
+
+        if (!userService.isLoggedIn(token) || !userService.isFleetManager(token)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        return  ResponseEntity.ok(
+                Arrays.stream(Priority.values())
+                  .map(priority -> new PriorityDto(priority.name()))
+                  .toList()
+                );
     }
 }

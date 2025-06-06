@@ -49,12 +49,8 @@ public class VehicleService {
      * @return The created Vehicle object, or null if a vehicle with the same ID already exists.
      */
     public Vehicle create(VehicleDto vehicleDto) {
-        // No need to check if the vehicle exists; every vehicle registration is unique.
-        if (!vehicleRepository.existsById(vehicleDto.getVehicleId())) {
-            var vehicle = dtoTransformerService.transformToModel(vehicleDto, Vehicle.class);
-            return vehicleRepository.save(vehicle);
-        }
-        return null;
+        var vehicle = dtoTransformerService.transformToModel(vehicleDto, Vehicle.class);
+        return vehicleRepository.save(vehicle);
     }
 
     /**
